@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dbg", "dbg\dbg.vcxproj", "{6D776CA5-BF51-417C-9626-FFF1F458E802}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "seq", "seq\seq.vcxproj", "{A5C5043F-2E3E-4F7E-8AAA-FBFAEF40BCD9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sim", "sim\sim.vcxproj", "{B813F83C-6CC0-4213-8580-37CF8F3C4152}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "par", "par\par.vcxproj", "{0CCDC3D6-B0CF-483F-88D1-00D607C40C44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D776CA5-BF51-417C-9626-FFF1F458E802}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6D776CA5-BF51-417C-9626-FFF1F458E802}.Debug|Win32.Build.0 = Debug|Win32
+		{6D776CA5-BF51-417C-9626-FFF1F458E802}.Release|Win32.ActiveCfg = Release|Win32
+		{6D776CA5-BF51-417C-9626-FFF1F458E802}.Release|Win32.Build.0 = Release|Win32
+		{A5C5043F-2E3E-4F7E-8AAA-FBFAEF40BCD9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A5C5043F-2E3E-4F7E-8AAA-FBFAEF40BCD9}.Debug|Win32.Build.0 = Debug|Win32
+		{A5C5043F-2E3E-4F7E-8AAA-FBFAEF40BCD9}.Release|Win32.ActiveCfg = Release|Win32
+		{A5C5043F-2E3E-4F7E-8AAA-FBFAEF40BCD9}.Release|Win32.Build.0 = Release|Win32
+		{B813F83C-6CC0-4213-8580-37CF8F3C4152}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B813F83C-6CC0-4213-8580-37CF8F3C4152}.Debug|Win32.Build.0 = Debug|Win32
+		{B813F83C-6CC0-4213-8580-37CF8F3C4152}.Release|Win32.ActiveCfg = Release|Win32
+		{B813F83C-6CC0-4213-8580-37CF8F3C4152}.Release|Win32.Build.0 = Release|Win32
+		{0CCDC3D6-B0CF-483F-88D1-00D607C40C44}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0CCDC3D6-B0CF-483F-88D1-00D607C40C44}.Debug|Win32.Build.0 = Debug|Win32
+		{0CCDC3D6-B0CF-483F-88D1-00D607C40C44}.Release|Win32.ActiveCfg = Release|Win32
+		{0CCDC3D6-B0CF-483F-88D1-00D607C40C44}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
