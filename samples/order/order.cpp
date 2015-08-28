@@ -1,4 +1,4 @@
-/*$TET$odrhandling$!cpp-copyright!*/
+/*$TET$order$!cpp-copyright!*/
 /*--------------------------------------------------------------------------*/
 /*  Copyright 2015 Sergey Vostokin                                          */
 /*                                                                          */
@@ -32,7 +32,7 @@
 /*--------------------------------------------------------------------------*/
 /*$TET$*/
 
-/*$TET$odrhandling$!templet!*/
+/*$TET$order$!templet!*/
 /*
 ~Customer_Order_handling=
 +	PREPARES? order -> CHECKS;
@@ -69,9 +69,9 @@
 */
 /*$TET$*/
 
-#include "odrhandling.h"
+#include "order.h"
 
-/*$TET$odrhandling$!cpp-prologue!*/
+/*$TET$order$!cpp-prologue!*/
 #include <iostream>
 using namespace std;
 #include <math.h>
@@ -255,23 +255,23 @@ void Shipment::_run(int _selector,TEMPLET_DBG::Channel*_channel)
 
 }
 
-//////////////////////class odrhandling////////////////////
-odrhandling::odrhandling(int NT): TEMPLET_DBG::Assemble(NT)
+//////////////////////class order////////////////////
+order::order(int NT): TEMPLET_DBG::Assemble(NT)
 {
-/*$TET$odrhandling$!constructor!*/
+/*$TET$order$!constructor!*/
 /*$TET$*/
 }
 
-odrhandling::~odrhandling()
+order::~order()
 {
-/*$TET$odrhandling$!destructor!*/
+/*$TET$order$!destructor!*/
 /*$TET$*/
 }
 
-/*$TET$odrhandling$!cpp-epilogue!*/
+/*$TET$order$!cpp-epilogue!*/
 int main()
 {
-	odrhandling runtime(1);
+	order runtime(1);
 
 	Customer* customer = runtime.new_Customer();
 	Order_handling* order_handling = runtime.new_Order_handling();

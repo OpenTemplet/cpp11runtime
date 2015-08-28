@@ -1,4 +1,4 @@
-/*$TET$odrhandling$!h-copyright!*/
+/*$TET$order$!h-copyright!*/
 /*--------------------------------------------------------------------------*/
 /*  Copyright 2015 Sergey Vostokin                                          */
 /*                                                                          */
@@ -16,15 +16,15 @@
 /*--------------------------------------------------------------------------*/
 /*$TET$*/
 
-#ifndef _TEMPLET_MODULE_odrhandling
-#define _TEMPLET_MODULE_odrhandling
+#ifndef _TEMPLET_MODULE_order
+#define _TEMPLET_MODULE_order
 
 #include <string.h>
 #include <assert.h>
 
 #include "dbg/tet.h"
 
-/*$TET$odrhandling$!h-prologue!*/
+/*$TET$order$!h-prologue!*/
 /*$TET$*/
 
 class Customer_Order_handling:public TEMPLET_DBG::Channel{
@@ -123,12 +123,12 @@ protected:
 	virtual void _run(int _selector,TEMPLET_DBG::Channel*_channel);
 };
 
-class odrhandling:public TEMPLET_DBG::Assemble{
+class order:public TEMPLET_DBG::Assemble{
 public:
-	odrhandling(int NT);
-	~odrhandling();
+	order(int NT);
+	~order();
 
-/*$TET$odrhandling$!userdata!*/
+/*$TET$order$!userdata!*/
 /*$TET$*/
 public:
 	Customer*new_Customer(){return 0;}
@@ -136,6 +136,6 @@ public:
 	Shipment*new_Shipment(){return 0;}
 };
 
-/*$TET$odrhandling$!h-epilogue!*/
+/*$TET$order$!h-epilogue!*/
 /*$TET$*/
 #endif
