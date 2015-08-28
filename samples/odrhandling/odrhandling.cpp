@@ -15,20 +15,20 @@
 /*  limitations under the License.                                          */
 /*--------------------------------------------------------------------------*/
 /*                                                                          */
-/*	Business process model : Customer Order procedure                       */
+/*  Business process model : Customer Order procedure                       */
 /*                                                                          */
-/*	A Customer prepares an Order.                                           */
-/*	He / she sends the order to Order Handling.                             */
-/*	Order Handling checks the order.                                        */
-/*	It sends an order confirmation to the Customer.                         */
-/*	The Customer receives the order confirmation.                           */
-/*	The Customer waits for the product.                                     */
-/*	Order Handling sends a delivery request to Shipment. Shipment receives  */
-/*	the request and sends the product delivery to the Customer.             */
-/*	The Customer receives the product delivery and checks the delivery.     */
+/*  A Customer prepares an Order.                                           */
+/*  He / she sends the order to Order Handling.                             */
+/*  Order Handling checks the order.                                        */
+/*  It sends an order confirmation to the Customer.                         */
+/*  The Customer receives the order confirmation.                           */
+/*  The Customer waits for the product.                                     */
+/*  Order Handling sends a delivery request to Shipment. Shipment receives  */
+/*  the request and sends the product delivery to the Customer.             */
+/*  The Customer receives the product delivery and checks the delivery.     */
 /*                                                                          */
-/*	Source: S-BPM in the Wild.Practical Value Creation                      */
-/*			http://www.springer.com/de/book/9783319175416 (page 280)        */
+/*  Source: S-BPM in the Wild.Practical Value Creation                      */
+/*          http://www.springer.com/de/book/9783319175416 (page 280)        */
 /*--------------------------------------------------------------------------*/
 /*$TET$*/
 
