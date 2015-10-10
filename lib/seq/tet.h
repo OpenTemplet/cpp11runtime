@@ -1,116 +1,142 @@
-#include <iostream>
-//#include <vector>
+/*--------------------------------------------------------------------------*/
+/*  Copyright 2010-2015 Sergey Vostokin                                     */
+/*                                                                          */
+/*  Licensed under the Apache License, Version 2.0 (the "License");         */
+/*  you may not use this file except in compliance with the License.        */
+/*  You may obtain a copy of the License at                                 */
+/*                                                                          */
+/*  http://www.apache.org/licenses/LICENSE-2.0                              */
+/*                                                                          */
+/*  Unless required by applicable law or agreed to in writing, software     */
+/*  distributed under the License is distributed on an "AS IS" BASIS,       */
+/*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.*/
+/*  See the License for the specific language governing permissions and     */
+/*  limitations under the License.                                          */
+/*--------------------------------------------------------------------------*/
+
+#ifndef _TEMPLET_SEQ
+#define _TEMPLET_SEQ
+
+#include <vector>
 #include <queue>
-#include <math.h>
 
-using namespace std;
+namespace TEMPLET_SEQ {
+////////////////////C++11 run-time///////////////////////
+struct engine;
+struct proc;
+struct chan;
 
-double x0,x1,x2,s2,c2;
-
-/////////////////////////////
-struct engine; 
-struct proc; 
-struct chan; 
- 
-struct engine{ 
-	//std::vector<chan*> ready;
+struct engine{
 	std::queue<chan*> ready;
-}; 
- 
-struct proc{ 
-	void(*recv)(chan*, proc*); 
-}; 
- 
-struct chan{ 
-	proc*p; 
- 	bool sending; 
-}; 
- 
-inline void send(engine*e, chan*c, proc*p) 
-{ 
-	if (c->sending) return; 
- 	c->sending = true;	c->p = p; 
- 	e->ready.push(c); 
+};
 
-//	if (c->sending) return; 
-// 	c->sending = true; 
-// 	c->p = p; 
-// 	e->ready.push_back(c); 
-} 
- 
-inline bool access(chan*c, proc*p) 
-{ 
-	return c->p == p && !c->sending; 
-} 
- 
-inline void run(engine*e, int n = 1) 
-{ 
- 	while (!e->ready.empty()){ 
- 		chan*c = e->ready.front(); e->ready.pop(); 
- 		c->sending = false; 
- 		c->p->recv(c, c->p); 
- 	} 
-/* 
-	size_t rsize; 
-	while (rsize = e->ready.size()){ 
- 		int n = rand() % rsize;	
-		std::vector<chan*>::const_iterator it = e->ready.begin() + n; 
- 		chan*c = *it;	e->ready.erase(it); c->sending = false; 
- 		c->p->recv(c, c->p); 
+struct proc{
+	void(*recv)(chan*, proc*);
+};
+
+struct chan{
+	proc*p;
+	bool sending;
+};
+
+inline void duration(engine*e, double t){}
+
+inline void send(engine*e, chan*c, proc*p)
+{
+	if (c->sending) return;
+	c->sending = true;	c->p = p;
+	e->ready.push(c);
+}
+
+inline bool access(chan*c, proc*p)
+{
+	return c->p == p && !c->sending;
+}
+
+inline void run(engine*e, int n = 1)
+{
+	while (!e->ready.empty()){
+		chan*c = e->ready.front(); e->ready.pop();
+		c->sending = false;
+		c->p->recv(c, c->p);
 	}
-*/
-} 
+}
 
-/////////////////////////////
-/*
-~Link= 
- 	+Begin ? argSin2 -> Calc | argCos2 -> Calc; 
- 	 Calc  ! result  -> End; 
- 	 End. 
-*Parent= 
- 	 p1 : Link ! result -> join; 
- 	 p2 : Link ! result -> join; 
- 	+fork(p1!argCos2,p2!argSin2); 
- 	 join(p1?result,p2?result). 
-*Child= 
- 	p : Link ? argCos2 -> calcCos2 | argSin2 -> calcSin2; 
- 	calcCos2(p?argCos2,p!result); 
- 	calcSin2(p?argSin2,p!result).
-*/ 
-/////////////////////////////
+inline void stat(engine*e, double&T1, double&Tp, int&Pmax, double&Smax, int P, double&Sp){}
+/////////////////////////////////////////////////////////
 
-engine e; 
-proc  parent,child1,child2; 
-chan  link0,link1,link2;
+class Assemble;
+class Channel;
+class Process;
+class Activator;
 
-void  Parent(chan*c, proc*p)
-{
-	if(c==&link0){  
-		cin >> x0; x1=x2=x0;
-		send(&e,&link1,&child1);
-		send(&e,&link2,&child2);
+class Assemble: public engine{
+	friend class Channel; 
+	friend class Activator;
+protected:
+	virtual ~Assemble();
+	Assemble(int NT=0){}
+public:	
+	bool run();
+public:
+	void _regChan(Channel*chan){channels.push_back(chan);}
+	void _regProc(Process*prc){processes.push_back(prc);}
+private:
+	std::vector<Channel*> channels;
+	std::vector<Process*> processes;
+	std::vector<Channel*> ready;
+};
+
+class Channel: public chan{
+	friend class Assemble;
+	friend class Process;
+	friend class Activator;
+	friend void recv(chan*c, proc*p);
+protected:
+	Channel(Assemble*a):_assemble(a),_active(CLI),
+		_cliPort(0), _srvPort(0), _cli_selector(0), _srv_selector(0){
+		p = 0; sending = false;
 	}
-	if(access(&link1,p) && access(&link2,p))
-		cout << endl << "sin2(x)+cos2(x)=" << s2+c2;
-}
+	virtual ~Channel(){}
+public:
+	enum ChanActivity{CLI,SRV,RTL_CLI,RTL_SRV};
+protected:	
+	void _send();
+	ChanActivity _active;
+public:
+	void resend();
+public:
+	Process* _cliPort;
+	Process* _srvPort;
+	int _cli_selector;
+	int _srv_selector;
+private:
+	Assemble* _assemble;
+};
 
-void Child(chan*c, proc*)
-{
-	if(c==&link1) s2=sin(x1)*sin(x1);  
-	else if(c==&link2)c2=cos(x2)*cos(x2);
-	else cout << "something wrong";
-	send(&e,c,&parent);
-}
+class Activator:public Channel{
+public:
+	Activator(Assemble*a,Process*p):Channel(a){_cliPort=p;}
+	void _send(int port);
+};
 
-void main()
-{
-	//cin >> x;
-	//s2=sin(x)*sin(x); /*//*/ c2=cos(x)*cos(x);
-	//cout << endl << "sin2(x)+cos2(x)=" << s2+c2;
-	
-	parent.recv=&Parent;
-	child1.recv=child2.recv=&Child;
-	
-	send(&e,&link0,&parent);
-	run(&e);
+class Process: public proc{
+	friend class Channel;
+	friend class Assemble;
+	friend void recv(chan*c, proc*p);
+protected:
+	void lock(){}
+	void unlock(){}
+protected:
+	Process(Assemble*a) :_assemble(a){ recv = TEMPLET_SEQ::recv; }
+	virtual ~Process(){}
+protected:
+	Activator* _createActivator(){return new Activator(_assemble,this);}
+private:
+	virtual void _run(int _selector,Channel*)=0;
+public:
+	Assemble* _assemble;
+};
+
 }
+#endif
