@@ -137,6 +137,5 @@ private:
 public:
 	Assemble* _assemble;
 };
-
 }
 #endif
